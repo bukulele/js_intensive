@@ -1,7 +1,18 @@
 const myIterable = {
-	from: 1,
+	from: 5,
 	to: 4,
-	[Symbol.iterator]: function () {
+};
+
+myIterable[Symbol.iterator] = function () {
+	if (
+		this.from > this.to ||
+		!this.from ||
+		!this.to ||
+		isNaN(this.from) ||
+		isNaN(this.to)
+	) {
+		throw new Error('Ошибка данных!');
+	} else {
 		return {
 			current: this.from,
 			last: this.to,
@@ -13,9 +24,5 @@ const myIterable = {
 				}
 			},
 		};
-	},
+	}
 };
-
-for (let item of myIterable) {
-	console.log(item);
-}
